@@ -9,7 +9,7 @@ function App() {
         selecterProjectId: undefined,
         projects: [],
     });
-
+    console.log("projectsState", projectsState.projects);
     const handleStartAddProject = () => {
         setProjectsState((prev) => ({
             ...prev,
@@ -41,11 +41,22 @@ function App() {
         }));
     };
 
+    const handleRemoveProject = () => {
+        setProjectsState((prev) => ({
+            ...prev,
+            selecterProjectId: undefined,
+            projects: prev.projects.filter(
+                (project) => project.id !== prev.selecterProjectId
+            ),
+        }));
+    };
+
     let content = (
         <SelectedProject
             project={projectsState.projects.find(
                 (project) => project.id === projectsState.selecterProjectId
             )}
+            onDelete={handleRemoveProject}
         />
     );
 
